@@ -70,3 +70,60 @@ body {
   /* background-position: center; */
   /* radial-gradient(circle, rgb(51, 14, 33) 0%, rgba(70, 10, 10, 0.68) 77%) */
 }
+
+
+/* Sidebar Styles */
+.sidebar-left {
+  min-height: 80vh;
+  width: 280px;
+  background-color: rgba(255, 255, 255, 0.158);
+  position: absolute;
+  left: 2em;
+  top: 2em;
+  padding: 0.7em;
+  color: rgb(46, 46, 46);
+  
+  /* box-shadow: rgba(255, 255, 255, 0.59) 0 0 20px; */
+}
+
+.sidebar-left .search {
+
+}
+
+.library-search {
+  width: 100%;
+  font-size: 1.6em;
+  /* height: 2.5em; */
+  background-color: rgba(255, 255, 255, 0.342);
+  border-style: none;
+  color: rgb(46, 46, 46);
+  padding: 0.1em 0.4em;
+  /* border: 2px solid rgb(255, 255, 255); */
+}
+.library-list {
+  margin-top: 0.6em;
+  max-height: 70vh;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  padding: 0.25em;
+}
+.library-list-item {
+  background-color: rgba(255, 255, 255, 0.192);
+  margin-top: 0.5em;
+  cursor: pointer;
+}
+.library-list-item-info {
+  margin-left: 0.5em;
+}
+.library-list-item-title {
+  margin-bottom: 0;
+  font-size: 1.05em;
+}
+.library-list-item-artist {
+  color: #646464;
+  font-size: 0.8em;
+}
+.library-list-item-poster {
+  width: 5em;
+  text-align: center;
+}

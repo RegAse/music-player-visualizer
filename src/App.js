@@ -12,6 +12,75 @@ function App() {
 
   return (
     <div className="App">
+      <div className='sidebar-left'>
+        <h2>Library</h2>
+        <input className='library-search' placeholder='Search' type="text"/>
+        <div className='library-list'>
+          <div className='library-list-item d-flex'>
+            <img className='library-list-item-poster' src='./images/music-poster-1.png' />
+            <div className='library-list-item-info'>
+              <p className='library-list-item-title'>Tone of The Wind</p>
+              <p className='library-list-item-artist'>GA</p>
+            </div>
+          </div>
+          <div className='library-list-item d-flex'>
+            <img className='library-list-item-poster' src='./images/music-poster-1.png' />
+            <div className='library-list-item-info'>
+              <p className='library-list-item-title'>Tone of The Wind</p>
+              <p className='library-list-item-artist'>GA</p>
+            </div>
+          </div>
+          <div className='library-list-item d-flex'>
+            <img className='library-list-item-poster' src='./images/music-poster-1.png' />
+            <div className='library-list-item-info'>
+              <p className='library-list-item-title'>Tone of The Wind</p>
+              <p className='library-list-item-artist'>GA</p>
+            </div>
+          </div>
+          <div className='library-list-item d-flex'>
+            <img className='library-list-item-poster' src='./images/music-poster-1.png' />
+            <div className='library-list-item-info'>
+              <p className='library-list-item-title'>Tone of The Wind</p>
+              <p className='library-list-item-artist'>GA</p>
+            </div>
+          </div>
+          <div className='library-list-item d-flex'>
+            <img className='library-list-item-poster' src='./images/music-poster-1.png' />
+            <div className='library-list-item-info'>
+              <p className='library-list-item-title'>Tone of The Wind</p>
+              <p className='library-list-item-artist'>GA</p>
+            </div>
+          </div>
+          <div className='library-list-item d-flex'>
+            <img className='library-list-item-poster' src='./images/music-poster-1.png' />
+            <div className='library-list-item-info'>
+              <p className='library-list-item-title'>Tone of The Wind</p>
+              <p className='library-list-item-artist'>GA</p>
+            </div>
+          </div>
+          <div className='library-list-item d-flex'>
+            <img className='library-list-item-poster' src='./images/music-poster-1.png' />
+            <div className='library-list-item-info'>
+              <p className='library-list-item-title'>Tone of The Wind</p>
+              <p className='library-list-item-artist'>GA</p>
+            </div>
+          </div>
+          <div className='library-list-item d-flex'>
+            <img className='library-list-item-poster' src='./images/music-poster-1.png' />
+            <div className='library-list-item-info'>
+              <p className='library-list-item-title'>Tone of The Wind</p>
+              <p className='library-list-item-artist'>GA</p>
+            </div>
+          </div>
+          <div className='library-list-item d-flex'>
+            <img className='library-list-item-poster' src='./images/music-poster-1.png' />
+            <div className='library-list-item-info'>
+              <p className='library-list-item-title'>Tone of The Wind</p>
+              <p className='library-list-item-artist'>GA</p>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className='container'>
         <div className='screen-center'>
           <div className='col-md-7'>
