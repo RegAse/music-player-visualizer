@@ -7,11 +7,16 @@ function Visualizer() {
   var canvas = document.getElementById("main-visuals");
   canvas.width = document.getElementById("canvas-container").clientWidth;
   canvas.height = canvas.width;
+  // canvas.width = 800;
+  // canvas.height = 800;
   let ctx = canvas.getContext("2d");
 
   circleVisualizer(ctx, canvas.width, canvas.height, [], 0);
 
   file.onchange = function () {
+    // canvas.width = document.getElementById("canvas-container").clientWidth;
+    // canvas.width = 1000;
+    // canvas.height = canvas.width;
     var files = this.files;
     audio.src = URL.createObjectURL(files[0]);
     audio.load();
@@ -133,7 +138,7 @@ function App() {
     <div className="App">
       <div className='container'>
         <div className='screen-center'>
-          <div className=''>
+          <div className='col-md-7'>
             <div id='canvas-container'>
               <div className='overlay'>
                 {/* <img src='background-3.jpeg' /> */}
