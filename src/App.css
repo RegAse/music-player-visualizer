@@ -20,7 +20,7 @@
   /* width: 100px; */
   /* background-color: rgba(255, 0, 0, 0.226); */
   width: 49.5%;
-  height: 46.5%;
+  height: 47%;
 
   /* background-color: rgba(97, 97, 97, 0.144); */
   /* border: 8px solid rgb(68, 79, 148); */
@@ -63,5 +63,7 @@ body {
   /* background-color: rgb(24, 24, 24); */
   /* background-color: rgb(48, 99, 153); */
   background: rgb(143,156,176);
-  background: radial-gradient(circle, rgb(82, 132, 206) 0%, rgba(22, 23, 105, 0.684) 77%);
+  /* background: radial-gradient(circle, rgb(82, 132, 206) 0%, rgba(22, 23, 105, 0.684) 77%); */
+  background: radial-gradient(circle, rgb(33, 66, 100) 12%, rgba(134, 41, 41, 0.68) 88%);
+  /* radial-gradient(circle, rgb(51, 14, 33) 0%, rgba(70, 10, 10, 0.68) 77%) */
 }

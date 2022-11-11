@@ -45,6 +45,7 @@ function Visualizer() {
     let n = 200;
     let theta = 2 * Math.PI / n;
     let phi = theta * 0.25;
+    let baseColorValue = 72;
 
     ctx.save();
 
@@ -52,22 +53,22 @@ function Visualizer() {
     ctx.translate(w / 2, h / 2);
 
     let grd = ctx.createLinearGradient(0, 0, 200, 0);
-    grd.addColorStop(0, "rgba(55,122,44,0.2)");
-    grd.addColorStop(1, "rgba(33,55,36,0.2)");
+    grd.addColorStop(0, "rgba(55,122,44,0.1)");
+    grd.addColorStop(1, "rgba(33,55,36,0.1)");
 
     let r = 12 * data[1] + (1 * (3 / bufferSize));
     let g = 12 * data[3];
     let b = 12 * data[1];
 
     // Circle inside fill
-    ctx.beginPath();
-    ctx.arc(0, 0, r0 - 2, 0, 2 * Math.PI, false);
-    //ctx.fillStyle = 'rgb(122,122,122)';
-    // ctx.shadowBlur = 33;
-    // ctx.shadowColor = "rgb(" + r + "," + g + "," + b + ",0.75)";
-    ctx.fillStyle = grd;
-    ctx.fill();
-    ctx.shadowBlur = 0;
+    // ctx.beginPath();
+    // ctx.arc(0, 0, r0 - 2, 0, 2 * Math.PI, false);
+    // ctx.fillStyle = 'rgb(122,122,122)';
+    // // ctx.shadowBlur = 33;
+    // // ctx.shadowColor = "rgb(" + r + "," + g + "," + b + ",0.75)";
+    // // ctx.fillStyle = grd;
+    // ctx.fill();
+    // ctx.shadowBlur = 0;
 
     // circle stroke
     ctx.beginPath();
@@ -92,9 +93,9 @@ function Visualizer() {
       ctx.arc(0, 0, r0, -phi, phi);
       ctx.arc(0, 0, r1 + boxHeight / 2, phi, -phi, true);
 
-      let r = 1 * boxHeight + (1 * (i / bufferSize));
-      let g = 1 * boxHeight;
-      let b = 3 * boxHeight;
+      let r = baseColorValue + 2 * boxHeight + (1 * (i / bufferSize));
+      let g = baseColorValue + 2 * boxHeight;
+      let b = baseColorValue + 3 * boxHeight;
       ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ",0.75)";
       ctx.fill();
       ctx.rotate(theta);
@@ -109,9 +110,9 @@ function Visualizer() {
       ctx.arc(0, 0, r0, -phi, phi);
       ctx.arc(0, 0, r1 + boxHeight / 1, phi, -phi, true);
 
-      let r = 1 * boxHeight + (1 * (i / bufferSize));
-      let g = 1 * boxHeight;
-      let b = 3 * boxHeight;
+      let r = baseColorValue + 2 * boxHeight + (1 * (i / bufferSize));
+      let g = baseColorValue + 2 * boxHeight;
+      let b = baseColorValue + 3 * boxHeight;
       ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ",0.75)";
       ctx.fill();
       ctx.rotate(theta);
