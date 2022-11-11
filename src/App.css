@@ -1,0 +1,67 @@
+.main-visuals {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+#canvas-container {
+  min-width: 100%;
+  position: relative;
+  /* background-color: rgb(67, 59, 114); */
+}
+
+.overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -35px;
+  bottom: 0;
+  margin: auto;
+  /* width: 100px; */
+  /* background-color: rgba(255, 0, 0, 0.226); */
+  width: 49.5%;
+  height: 46.5%;
+
+  /* background-color: rgba(97, 97, 97, 0.144); */
+  /* border: 8px solid rgb(68, 79, 148); */
+  /* background: black url("../public/images/tech-background-1.png"); */
+  background-size: cover;
+  /* background-color: rgba(255, 0, 0, 0.486); */
+
+  border-radius: 50%;
+  box-shadow: rgba(184, 185, 255, 0.59) 0 0 100px;
+}
+
+.overlay svg {
+  z-index: 2;
+  color: white;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 60px;
+  width: 100%;
+}
+
+.overlay img {
+  z-index: 1;
+  color: white;
+  position: absolute;
+  left: 0%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  border-radius: 50%;
+}
+.screen-center {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body {
+  /* background-color: rgb(24, 24, 24); */
+  /* background-color: rgb(48, 99, 153); */
+  background: rgb(143,156,176);
+  background: radial-gradient(circle, rgb(82, 132, 206) 0%, rgba(22, 23, 105, 0.684) 77%);
+}
