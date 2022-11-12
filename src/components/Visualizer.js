@@ -1,8 +1,6 @@
 
 export function Visualizer() {
 
-    // var file = document.getElementById("thefile");
-
     let canvas = document.getElementById("main-visuals");
     canvas.width = document.getElementById("canvas-container").clientWidth;
     canvas.height = canvas.width;
@@ -88,12 +86,13 @@ export function Visualizer() {
         ctx.shadowBlur = 0;
 
         let wraparound = 100;
-
+        console.log("Ran now: " + n);
         for (var i = 0; i < n - wraparound; ++i) {
             let boxHeight = data[i * 1] * 0.8;
-            if (boxHeight == undefined || boxHeight < 10) {
+            if (boxHeight == undefined || i > bufferSize || boxHeight < 10) {
                 boxHeight = 10;
             }
+
 
             ctx.beginPath();
             ctx.arc(0, 0, r0, -phi, phi);
