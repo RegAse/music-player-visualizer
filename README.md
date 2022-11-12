@@ -17,4 +17,4 @@ A music player with a library of music to play
 
 ### Target Design
 Designed 
-![alt text](/images/web-design-9-1.png)
+![alt text](https://github.com/RegAse/music-player-visualizer/blob/main/public/images/web-design-9-1.png)
