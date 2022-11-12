@@ -15,17 +15,19 @@ export function Visualizer() {
         audio.volume = volume;
     }
 
+    function seek(time) {
+        audio = document.getElementById("audio");
+        audio.currentTime = audio.duration * time;
+    }
+
     function onChange() {
         audio = document.getElementById("audio");
         if (audio == null) {
             // Nothing to be played...
             return;
         }
-        console.log("Change music file being played");
-
         audio.load();
         audio.play();
-        audio.volume = 0.1;
         var context = new AudioContext();
         var src = context.createMediaElementSource(audio);
         var analyser = context.createAnalyser();
@@ -133,6 +135,7 @@ export function Visualizer() {
 
     return {
         onChange: onChange,
-        setVolume: setVolume
+        setVolume: setVolume,
+        seek: seek
     };
 }
