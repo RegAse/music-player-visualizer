@@ -1,8 +1,9 @@
 
 export function Visualizer() {
-    var file = document.getElementById("thefile");
-    var audio = document.getElementById("audio");
-    var canvas = document.getElementById("main-visuals");
+
+    // var file = document.getElementById("thefile");
+
+    let canvas = document.getElementById("main-visuals");
     canvas.width = document.getElementById("canvas-container").clientWidth;
     canvas.height = canvas.width;
     // canvas.width = 800;
@@ -11,12 +12,14 @@ export function Visualizer() {
 
     circleVisualizer(ctx, canvas.width, canvas.height, [], 0);
 
-    file.onchange = function () {
-        // canvas.width = document.getElementById("canvas-container").clientWidth;
-        // canvas.width = 1000;
-        // canvas.height = canvas.width;
-        var files = this.files;
-        audio.src = URL.createObjectURL(files[0]);
+    function onChange() {
+        let audio = document.getElementById("audio");
+        if (audio == null) {
+            // Nothing to be played...
+            return;
+        }
+        console.log("Change music file being played");
+
         audio.load();
         audio.play();
         audio.volume = 0.1;
@@ -123,4 +126,8 @@ export function Visualizer() {
 
         ctx.restore();
     }
+
+    return {
+        onChange: onChange
+    };
 }

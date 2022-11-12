@@ -76,7 +76,7 @@ body {
 .sidebar-left {
   min-height: 80vh;
   width: 280px;
-  background-color: rgba(255, 255, 255, 0.158);
+  background-color: rgba(255, 255, 255, 0.356);
   position: absolute;
   left: 2em;
   top: 2em;
@@ -85,11 +85,6 @@ body {
   
   /* box-shadow: rgba(255, 255, 255, 0.59) 0 0 20px; */
 }
-
-.sidebar-left .search {
-
-}
-
 .library-search {
   width: 100%;
   font-size: 1.6em;
@@ -108,8 +103,12 @@ body {
   padding: 0.25em;
 }
 .library-list-item {
-  background-color: rgba(255, 255, 255, 0.192);
+  background-color: rgba(255, 255, 255, 0.226);
   margin-top: 0.5em;
+}
+.library-list-item:hover {
+  background-color: rgba(255, 255, 255, 0.555);
+  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.808);
   cursor: pointer;
 }
 .library-list-item-info {
@@ -126,4 +125,19 @@ body {
 .library-list-item-poster {
   width: 5em;
   text-align: center;
+}
+/* Sidebar Styles end */
+
+/* Scrollbar for Chrome and other */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background-color: rgb(252, 252, 252);
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(189, 189, 189); 
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #b3b3b3; 
 }
