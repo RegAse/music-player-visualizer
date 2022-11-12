@@ -1,6 +1,6 @@
 
 export function Visualizer() {
-
+    let audio = document.getElementById("audio");
     let canvas = document.getElementById("main-visuals");
     canvas.width = document.getElementById("canvas-container").clientWidth;
     canvas.height = canvas.width;
@@ -10,8 +10,13 @@ export function Visualizer() {
 
     circleVisualizer(ctx, canvas.width, canvas.height, [], 0);
 
+    function setVolume(volume) {
+        audio = document.getElementById("audio");
+        audio.volume = volume;
+    }
+
     function onChange() {
-        let audio = document.getElementById("audio");
+        audio = document.getElementById("audio");
         if (audio == null) {
             // Nothing to be played...
             return;
@@ -127,6 +132,7 @@ export function Visualizer() {
     }
 
     return {
-        onChange: onChange
+        onChange: onChange,
+        setVolume: setVolume
     };
 }

@@ -71,6 +71,10 @@ body {
   /* radial-gradient(circle, rgb(51, 14, 33) 0%, rgba(70, 10, 10, 0.68) 77%) */
 }
 
+.controls-volume svg {
+  margin-right: 0.3em;
+  color: white;
+}
 
 /* Sidebar Styles */
 .sidebar-left {
@@ -146,4 +150,49 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #b3b3b3; 
+}
+
+/* Slider for volume and seek control */
+.slider {
+  opacity: 0.7;
+  background-color: transparent;
+}
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  width: 15px;
+  height: 15px;
+  background: #ffffffc7;
+  cursor: pointer;
+  border-radius: 0;
+}
+
+.slider::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  background: #ffffffc7;
+  cursor: pointer;
+  border-radius: 0;
+  border: none;
+}
+
+/** FF */
+.slider::-moz-range-progress {
+  background-color: #ffffff93;
+  height: 8px;
+}
+.slider::-moz-range-track {  
+  background-color: #cebfbf70;
+  height: 8px;
+}
+/* IE */
+.slider::-ms-fill-lower {
+  background-color: #ffffff93;
+  height: 8px;
+}
+.slider::-ms-fill-upper {  
+  background-color: #cebfbf70;
+  height: 8px;
 }

@@ -1,5 +1,5 @@
 import './App.css';
-import { BsFillPauseFill, BsFillPlayFill } from "react-icons/bs";
+import { BsFillPauseFill, BsFillPlayFill, BsFillVolumeUpFill } from "react-icons/bs";
 import { Visualizer } from './components/Visualizer';
 import { data } from "./data/LibraryData";
 import { useEffect, useState } from 'react';
@@ -15,12 +15,18 @@ function App() {
 
   const [currentSong, setCurrentSong] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
+  const [volume, setVolume] = useState(50);// range 0 to 100
 
   useEffect(() => {
-    if(isPlaying) {
+    if (isPlaying) {
       Visualizer().onChange();
     }
   }, [currentSong]);
+
+  function handleVolumeChange(e) {
+    setVolume(e.target.value);
+    Visualizer().setVolume(e.target.value / 100);
+  }
 
   function handleClick(e) {
     console.log("Clicked on " + e.currentTarget.dataset.id);
@@ -82,6 +88,10 @@ function App() {
                 ""
               }
               <canvas id="main-visuals" className='main-visuals'></canvas>
+              <div className='controls-volume d-flex align-items-center justify-content-center'>
+                <BsFillVolumeUpFill></BsFillVolumeUpFill>
+                <input type="range" min="0" max="100" value={volume} onChange={handleVolumeChange} className='slider' />
+              </div>
             </div>
           </div>
         </div>
