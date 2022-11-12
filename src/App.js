@@ -23,7 +23,7 @@ function App() {
     if (isPlaying) {
       Visualizer().onChange();
     }
-  }, [currentSong]);
+  }, [currentSong, isPlaying]);
 
   function handleVolumeChange(e) {
     setVolume(e.target.value);
@@ -74,7 +74,7 @@ function App() {
           {
             songs.map(song => (
               <div key={song.id} className='library-list-item d-flex' data-id={song.id} onClick={handleSelectSong}>
-                <img className='library-list-item-poster' src={song.poster} />
+                <img className='library-list-item-poster' src={song.poster} alt="Failed Loading" />
                 <div className='library-list-item-info'>
                   <p className='library-list-item-title'>{song.title}</p>
                   <p className='library-list-item-artist'>{song.artist}</p>

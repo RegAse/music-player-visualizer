@@ -67,9 +67,9 @@ export function Visualizer() {
         grd.addColorStop(0, "rgba(55,122,44,0.1)");
         grd.addColorStop(1, "rgba(33,55,36,0.1)");
 
-        let r = 12 * data[1] + (1 * (3 / bufferSize));
-        let g = 12 * data[3];
-        let b = 12 * data[1];
+        // let r = 12 * data[1] + (1 * (3 / bufferSize));
+        // let g = 12 * data[3];
+        // let b = 12 * data[1];
 
         // Circle inside fill
         // ctx.beginPath();
