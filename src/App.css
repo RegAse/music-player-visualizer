@@ -31,16 +31,16 @@
 
 .overlay svg {
   z-index: 2;
-  color: white;
+  color: rgba(255, 255, 255, 0.26);
   position: absolute;
   left: 0;
-  top: 50%;
+  top: 53%;
   transform: translateY(-50%);
-  height: 60px;
+  height: 120px;
   width: 100%;
 }
 .overlay svg:hover {
-  color: gray;
+  color: rgba(255, 255, 255, 0.589);
   cursor: pointer;
 }
 
