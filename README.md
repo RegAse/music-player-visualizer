@@ -14,3 +14,7 @@ A music player with a library of music to play
     * Box Visualizer
     * Path
 * Particles
+
+### Target Design
+Designed 
+![alt text](/images/web-design-9-1.png)
