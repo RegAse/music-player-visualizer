@@ -4,14 +4,18 @@ import { Visualizer } from './components/Visualizer';
 import { data } from "./data/LibraryData";
 import { useEffect, useState } from 'react';
 
+let visualizer;
 
 window.onload = function () {
   // Visualizer();
-  const wait1 = setTimeout(Visualizer, 1);
+  const wait1 = setTimeout(function () {
+    visualizer = Visualizer();
+  }, 1);
 }
 
 function App() {
   let songs = data["songs"];
+  // let visualizer;// The problem is this should only be created once...
 
   const [currentSong, setCurrentSong] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
@@ -21,25 +25,36 @@ function App() {
 
   useEffect(() => {
     if (isPlaying) {
-      Visualizer().onChange();
+      if (visualizer == undefined) {
+        visualizer = Visualizer();
+        console.log("CREATE NEW USE EFFECT" + visualizer);
+
+      }
+      visualizer.onChange(currentSong.file);
     }
   }, [currentSong, isPlaying]);
 
   function handleVolumeChange(e) {
     setVolume(e.target.value);
-    Visualizer().setVolume(e.target.value / 100);
+    visualizer.setVolume(e.target.value / 100);
   }
 
   function handleSeek(e) {
     // setCurrentTime(e.target.value);
     console.log("Seek: " + e.target.value / 100);
-    if(!isPlaying) {
+    if (!isPlaying) {
       setIsPlaying(true);
     }
-    Visualizer().seek(e.target.value / 100);
+    visualizer.seek(e.target.value / 100);
   }
 
   function handleSelectSong(e) {
+    if (visualizer == undefined) {
+      console.log("CREATE NEW" + visualizer);
+      visualizer = Visualizer();
+      console.log("CREATE NEW" + visualizer);
+
+    }
     console.log("Clicked on " + e.currentTarget.dataset.id);
     setCurrentSong(songs[e.currentTarget.dataset.id]);
     setIsPlaying(true);
@@ -60,7 +75,7 @@ function App() {
   }
 
   function onUpdatePlaying(e) {
-    console.log("Time: " + e.currentTarget.currentTime);
+    // console.log("Time: " + e.currentTarget.currentTime);
     setCurrentTime((e.currentTarget.currentTime / e.currentTarget.duration) * 100);
     setDuration(e.currentTarget.duration);
   }
@@ -112,9 +127,9 @@ function App() {
               }
               <canvas id="main-visuals" className='main-visuals'></canvas>
               <div className='controls-bottom d-flex align-items-center justify-content-center'>
-                <span>{Math.floor(((duration / 100) * currentTime) % 3600 / 60).toString().padStart(1,'0') + ":" + Math.floor(((duration / 100) * currentTime) % 60).toString().padStart(2,'0')}</span>
+                <span>{Math.floor(((duration / 100) * currentTime) % 3600 / 60).toString().padStart(1, '0') + ":" + Math.floor(((duration / 100) * currentTime) % 60).toString().padStart(2, '0')}</span>
                 <input type="range" min="0" max="100" value={currentTime} onChange={handleSeek} className='slider' />
-                <span>{Math.floor(duration % 3600 / 60).toString().padStart(1,'0') + ":" + Math.floor(duration % 60).toString().padStart(2,'0')}</span>
+                <span>{Math.floor(duration % 3600 / 60).toString().padStart(1, '0') + ":" + Math.floor(duration % 60).toString().padStart(2, '0')}</span>
               </div>
             </div>
           </div>

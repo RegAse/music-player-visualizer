@@ -7,11 +7,20 @@ export function Visualizer() {
     // canvas.width = 800;
     // canvas.height = 800;
     let ctx = canvas.getContext("2d");
+    let audioContext;
+    let src = null;
+    let analyser;
+    let bufferLength = 0;
+    let dataArray = null;
+    let animationContext;
+    console.log("THIS SHOULD NEVER RUN TWICE");
 
+    // Render First frame
     circleVisualizer(ctx, canvas.width, canvas.height, [], 0);
 
     function setVolume(volume) {
         audio = document.getElementById("audio");
+        console.log("Set Volume to: " + volume);
         audio.volume = volume;
     }
 
@@ -21,24 +30,41 @@ export function Visualizer() {
     }
 
     function onChange() {
+        console.log("CREATE NEW");
+        if(!audioContext) {
+            console.log("CREATE NEW CONTEXT");
+            audioContext = new AudioContext();
+        }
+
         audio = document.getElementById("audio");
         if (audio == null) {
             // Nothing to be played...
             return;
         }
-        audio.load();
-        audio.play();
-        var context = new AudioContext();
-        var src = context.createMediaElementSource(audio);
-        var analyser = context.createAnalyser();
-        src.connect(analyser);
-        analyser.connect(context.destination);
-        analyser.fftSize = 512;
-        var bufferLength = analyser.frequencyBinCount;
-        var dataArray = new Uint8Array(bufferLength);
+        if(src != null) {
+            src.disconnect();
+            analyser.disconnect();
+        }
+        // audioContext.close();
+        // audioContext = new AudioContext();
 
-        function renderFrame() {
-            requestAnimationFrame(renderFrame);
+        if(dataArray == null) {
+            src = audioContext.createMediaElementSource(audio);
+        }
+        audio.load();
+        audio.volume = 0.1;
+
+        // // var context = new AudioContext();
+        // src = audioContext.createMediaElementSource(audio);
+        analyser = audioContext.createAnalyser();
+        src.connect(analyser);
+        analyser.connect(audioContext.destination);
+        analyser.fftSize = 512;
+        bufferLength = analyser.frequencyBinCount;
+        dataArray = new Uint8Array(bufferLength);
+
+        function frameUpdate() {
+            animationContext = requestAnimationFrame(frameUpdate);
 
             analyser.getByteFrequencyData(dataArray);
 
@@ -46,7 +72,8 @@ export function Visualizer() {
             circleVisualizer(ctx, canvas.width, canvas.height, dataArray, bufferLength);
         }
         audio.play();
-        renderFrame();
+        cancelAnimationFrame(animationContext);
+        frameUpdate();
     }
 
     function circleVisualizer(ctx, w, h, data, bufferSize) {
@@ -56,7 +83,7 @@ export function Visualizer() {
         let n = 200;
         let theta = 2 * Math.PI / n;
         let phi = theta * 0.25;
-        let baseColorValue = 72;
+        let baseColorValue = 12;
 
         ctx.save();
 
@@ -93,11 +120,14 @@ export function Visualizer() {
         ctx.shadowBlur = 0;
 
         let wraparound = 100;
-        console.log("Ran now: " + n);
+        // console.log("Ran now: " + n);
         for (var i = 0; i < n - wraparound; ++i) {
-            let boxHeight = data[i * 1] * 0.8;
+            let boxHeight = data[i * 1] * 0.6;
             if (boxHeight == undefined || i > bufferSize || boxHeight < 10) {
                 boxHeight = 10;
+            }
+            if(boxHeight > 300) {
+                boxHeight = 300;
             }
 
 
@@ -105,26 +135,29 @@ export function Visualizer() {
             ctx.arc(0, 0, r0, -phi, phi);
             ctx.arc(0, 0, r1 + boxHeight / 2, phi, -phi, true);
 
-            let r = baseColorValue + 2 * boxHeight + (1 * (i / bufferSize));
+            let r = baseColorValue + 3 * boxHeight + (1 * (i / bufferSize));
             let g = baseColorValue + 2 * boxHeight;
-            let b = baseColorValue + 3 * boxHeight;
+            let b = baseColorValue + 4 * boxHeight;
             ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ",0.75)";
             ctx.fill();
             ctx.rotate(theta);
         }
         for (var i = 0; i < wraparound; ++i) {
-            let boxHeight = data[wraparound - i] * 0.8;
+            let boxHeight = data[wraparound - i] * 0.6;
             if (boxHeight == undefined || boxHeight < 10) {
                 boxHeight = 10;
+            }
+            if(boxHeight > 300) {
+                boxHeight = 300;
             }
 
             ctx.beginPath();
             ctx.arc(0, 0, r0, -phi, phi);
             ctx.arc(0, 0, r1 + boxHeight / 1, phi, -phi, true);
 
-            let r = baseColorValue + 2 * boxHeight + (1 * (i / bufferSize));
+            let r = baseColorValue + 3 * boxHeight + (1 * (i / bufferSize));
             let g = baseColorValue + 2 * boxHeight;
-            let b = baseColorValue + 3 * boxHeight;
+            let b = baseColorValue + 4 * boxHeight;
             ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ",0.75)";
             ctx.fill();
             ctx.rotate(theta);
