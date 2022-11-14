@@ -76,9 +76,13 @@ body {
   position: absolute;
   /* background-color: red; */
   color: white;
-  right: 0;
-  height: 100%;
-  width: 30px;
+  right: -20%;
+  top: 35%;
+  /* height: 100%; */
+  /* width: 330px; */
+}
+.controls-volume {
+  /* transform: rotate(90deg); */
 }
 .controls-right *{
   margin-bottom: 0.5em;
@@ -174,26 +178,58 @@ body {
   opacity: 0.7;
   background-color: transparent;
 }
+.slider-horizontal {
+  height: 10px;
+}
 .slider-vertical {
   /* position: absolute; */
   /* right: 0;
   top: 40%; */
-  writing-mode: bt-lr; /* IE */
-  -webkit-appearance: slider-vertical; /* Chromium */
+  /* width: 10px; */
+  height: 10px;
+  /* width: 400px; */
+
+  transform: rotate(-90deg);
   /* height: 175px; */
-  padding: 0 5px;
+  /* padding: 0 5px; */
   z-index: 3;
+}
+.slider-vertical-fixed-height {
+  height: 100px;
+  margin-top: 90px;
 }
 .slider:hover {
   opacity: 1;
 }
 
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  input[type='range'] {
+    overflow: hidden;
+    width: 150px;
+    -webkit-appearance: none;
+    background-color: #cebfbf70;;
+  }
+  
+  input[type='range']::-webkit-slider-thumb {
+    width: 10px;
+    -webkit-appearance: none;
+    height: 12px;
+    cursor: pointer;
+    background: #ffffff93;
+    box-shadow: -80px 0 0 80px #ffffff93;
+  }
+
+}
+
 .slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
   width: 8px;
   height: 8px;
   background: transparent;
   cursor: pointer;
   border-radius: 0;
+  border: none;
+
 }
 
 .slider::-moz-range-thumb {
@@ -211,7 +247,7 @@ body {
   height: 8px;
 }
 .slider::-moz-range-track {  
-  background-color: #cebfbf70;
+  /* background-color: #cebfbf70; */
   height: 8px;
 }
 /* IE */
@@ -225,7 +261,7 @@ body {
 }
 
 /** Vertical Slider FF */
-.slider-vertical::-moz-range-progress {
+/* .slider-vertical::-moz-range-progress {
   background-color: #ffffff93;
   height: 100%;
   width: 8px;
@@ -234,9 +270,9 @@ body {
   background-color: #cebfbf70;
   height: 100%;
   width: 8px;
-}
+} */
 /* IE */
-.slider-vertical::-ms-fill-lower {
+/* .slider-vertical::-ms-fill-lower {
   background-color: #ffffff93;
   height: 100%;
   width: 8px;
@@ -245,4 +281,4 @@ body {
   background-color: #cebfbf70;
   height: 100%;
   width: 8px;
-}
+} */

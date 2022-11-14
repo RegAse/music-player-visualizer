@@ -27,12 +27,10 @@ function App() {
     if (isPlaying) {
       if (visualizer == undefined) {
         visualizer = Visualizer();
-        console.log("CREATE NEW USE EFFECT" + visualizer);
-
       }
       visualizer.onChange(currentSong.file);
     }
-  }, [currentSong, isPlaying]);
+  }, [currentSong]);
 
   function handleVolumeChange(e) {
     setVolume(e.target.value);
@@ -40,9 +38,10 @@ function App() {
   }
 
   function handleSeek(e) {
-    // setCurrentTime(e.target.value);
     console.log("Seek: " + e.target.value / 100);
     if (!isPlaying) {
+      let audio = document.getElementById("audio");
+      audio.play();
       setIsPlaying(true);
     }
     visualizer.seek(e.target.value / 100);
@@ -50,12 +49,8 @@ function App() {
 
   function handleSelectSong(e) {
     if (visualizer == undefined) {
-      console.log("CREATE NEW" + visualizer);
       visualizer = Visualizer();
-      console.log("CREATE NEW" + visualizer);
-
     }
-    console.log("Clicked on " + e.currentTarget.dataset.id);
     setCurrentSong(songs[e.currentTarget.dataset.id]);
     setIsPlaying(true);
   }
@@ -64,14 +59,12 @@ function App() {
     let audio = document.getElementById("audio");
     audio.pause();
     setIsPlaying(false);
-    console.log("pause");
   }
 
   function handlePlayClick() {
     let audio = document.getElementById("audio");
     audio.play();
     setIsPlaying(true);
-    console.log("Play");
   }
 
   function onUpdatePlaying(e) {
@@ -103,10 +96,14 @@ function App() {
         <div className='screen-center'>
           <div className='col-md-7'>
             <div id='canvas-container'>
-              <div className='controls-right d-flex align-items-center justify-content-center flex-column'>
-                <BsFillVolumeUpFill></BsFillVolumeUpFill>
-                <input type="range" min="0" max="100" value={volume} onChange={handleVolumeChange} orient="vertical" className='slider slider-vertical' />
-                <BsFillVolumeOffFill></BsFillVolumeOffFill>
+              <div className='controls-right'>
+                <div className='controls-volume d-flex align-items-center justify-content-center flex-column'>
+                  <BsFillVolumeUpFill></BsFillVolumeUpFill>
+                  <div className='slider-vertical-fixed-height'>
+                    <input type="range" min="0" max="100" value={volume} onChange={handleVolumeChange} className='slider slider-vertical' />
+                  </div>
+                  <BsFillVolumeOffFill></BsFillVolumeOffFill>
+                </div>
               </div>
               <div className='overlay'>
 
@@ -128,7 +125,7 @@ function App() {
               <canvas id="main-visuals" className='main-visuals'></canvas>
               <div className='controls-bottom d-flex align-items-center justify-content-center'>
                 <span>{Math.floor(((duration / 100) * currentTime) % 3600 / 60).toString().padStart(1, '0') + ":" + Math.floor(((duration / 100) * currentTime) % 60).toString().padStart(2, '0')}</span>
-                <input type="range" min="0" max="100" value={currentTime} onChange={handleSeek} className='slider' />
+                <input type="range" min="0" max="100" value={currentTime} onChange={handleSeek} className='slider slider-horizontal' />
                 <span>{Math.floor(duration % 3600 / 60).toString().padStart(1, '0') + ":" + Math.floor(duration % 60).toString().padStart(2, '0')}</span>
               </div>
             </div>
