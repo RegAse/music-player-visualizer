@@ -22,6 +22,16 @@ function App() {
   const [volume, setVolume] = useState(30);// range 0 to 100
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [search, setSearch] = useState("");
+
+  const filteredSongs = songs.filter(
+    song => {
+      return(
+        song.title.toLowerCase()
+        .includes(search.toLowerCase())
+      );
+    }
+  );
 
   useEffect(() => {
     if (isPlaying) {
@@ -73,14 +83,18 @@ function App() {
     setDuration(e.currentTarget.duration);
   }
 
+  function handleSearch(e) {
+    setSearch(e.target.value);
+  }
+
   return (
     <div className="App">
       <div className='sidebar-left'>
         <h2>Library</h2>
-        <input className='library-search' placeholder='Search' type="text" />
+        <input className='library-search' placeholder='Search' type="text" onChange={handleSearch} />
         <div className='library-list'>
           {
-            songs.map(song => (
+            filteredSongs.map(song => (
               <div key={song.id} className='library-list-item d-flex' data-id={song.id} onClick={handleSelectSong}>
                 <img className='library-list-item-poster' src={song.poster} alt="Failed Loading" />
                 <div className='library-list-item-info'>
@@ -90,6 +104,7 @@ function App() {
               </div>
             ))
           }
+          {filteredSongs.length ? "" : "No Songs found: '" + search + "'"}
         </div>
       </div>
       <div className='container'>
