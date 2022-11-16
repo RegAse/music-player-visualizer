@@ -4,8 +4,6 @@ export function Visualizer() {
     let canvas = document.getElementById("main-visuals");
     canvas.width = document.getElementById("canvas-container").clientWidth;
     canvas.height = canvas.width;
-    // canvas.width = 800;
-    // canvas.height = 800;
     let ctx = canvas.getContext("2d");
     let audioContext;
     let src = null;
@@ -13,14 +11,12 @@ export function Visualizer() {
     let bufferLength = 0;
     let dataArray = null;
     let animationContext;
-    console.log("THIS SHOULD NEVER RUN TWICE");
 
     // Render First frame
     circleVisualizer(ctx, canvas.width, canvas.height, [], 0);
 
     function setVolume(volume) {
         audio = document.getElementById("audio");
-        console.log("Set Volume to: " + volume);
         audio.volume = volume;
     }
 
@@ -30,9 +26,7 @@ export function Visualizer() {
     }
 
     function onChange() {
-        console.log("CREATE NEW");
         if(!audioContext) {
-            console.log("CREATE NEW CONTEXT");
             audioContext = new AudioContext();
         }
 
@@ -45,17 +39,11 @@ export function Visualizer() {
             src.disconnect();
             analyser.disconnect();
         }
-        // audioContext.close();
-        // audioContext = new AudioContext();
 
         if(dataArray == null) {
             src = audioContext.createMediaElementSource(audio);
         }
         audio.load();
-        audio.volume = 0.1;
-
-        // // var context = new AudioContext();
-        // src = audioContext.createMediaElementSource(audio);
         analyser = audioContext.createAnalyser();
         src.connect(analyser);
         analyser.connect(audioContext.destination);

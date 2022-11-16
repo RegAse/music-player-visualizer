@@ -1,5 +1,5 @@
 import './App.css';
-import { BsFillPauseFill, BsFillPlayFill, BsFillVolumeUpFill, BsFillVolumeOffFill } from "react-icons/bs";
+import { BsFillPauseFill, BsFillPlayFill, BsFillVolumeUpFill, BsFillVolumeOffFill, BsList } from "react-icons/bs";
 import { Visualizer } from './components/Visualizer';
 import { data } from "./data/LibraryData";
 import { useEffect, useState } from 'react';
@@ -17,6 +17,7 @@ function App() {
   let songs = data["songs"];
   // let visualizer;// The problem is this should only be created once...
 
+  const [showSidebar, setShowSidebar] = useState(true);
   const [currentSong, setCurrentSong] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(30);// range 0 to 100
@@ -26,9 +27,9 @@ function App() {
 
   const filteredSongs = songs.filter(
     song => {
-      return(
+      return (
         song.title.toLowerCase()
-        .includes(search.toLowerCase())
+          .includes(search.toLowerCase())
       );
     }
   );
@@ -88,10 +89,17 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <div className='sidebar-left'>
+    <div className='App'>
+      <a className='sidebar-expand' onClick={() => setShowSidebar(!showSidebar) }><BsList></BsList></a>
+      {/* <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+          Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+        </div>
+      </div> */}
+      {showSidebar ?
+      <div className='sidebar-left' id='collapseExample'>
         <h2>Library</h2>
-        <input className='library-search' placeholder='Search' type="text" onChange={handleSearch} />
+        <input className='library-search' placeholder='Search' type='text' onChange={handleSearch} />
         <div className='library-list'>
           {
             filteredSongs.map(song => (
@@ -106,7 +114,9 @@ function App() {
           }
           {filteredSongs.length ? "" : "No Songs found: '" + search + "'"}
         </div>
-      </div>
+      </div> 
+      : ""
+      }
       <div className='container'>
         <div className='screen-center'>
           <div className='col-md-7'>
