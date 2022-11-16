@@ -25,7 +25,7 @@ export function Visualizer() {
         audio.currentTime = audio.duration * time;
     }
 
-    function onChange() {
+    function onChange(volume) {
         if(!audioContext) {
             audioContext = new AudioContext();
         }
@@ -59,6 +59,7 @@ export function Visualizer() {
             // Render the data with a visualizer, possibly change to a different one here
             circleVisualizer(ctx, canvas.width, canvas.height, dataArray, bufferLength);
         }
+        audio.volume = volume;
         audio.play();
         cancelAnimationFrame(animationContext);
         frameUpdate();

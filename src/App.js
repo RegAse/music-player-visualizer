@@ -39,7 +39,7 @@ function App() {
       if (visualizer == undefined) {
         visualizer = Visualizer();
       }
-      visualizer.onChange(currentSong.file);
+      visualizer.onChange(volume / 100);
     }
   }, [currentSong]);
 
