@@ -63,6 +63,7 @@ function App() {
       visualizer = Visualizer();
     }
     setCurrentSong(songs[e.currentTarget.dataset.id]);
+    // setShowSidebar(false);
     setIsPlaying(true);
   }
 
@@ -90,7 +91,7 @@ function App() {
 
   return (
     <div className='App'>
-      <a className='sidebar-expand' onClick={() => setShowSidebar(!showSidebar) }><BsList></BsList></a>
+      {/* <a className='sidebar-expand' onClick={() => setShowSidebar(!showSidebar) }><BsList></BsList></a> */}
       {/* <div class="collapse" id="collapseExample">
         <div class="card card-body">
           Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
@@ -133,9 +134,9 @@ function App() {
               <div className='overlay'>
 
                 {isPlaying ?
-                  <BsFillPauseFill onClick={handlePauseClick}></BsFillPauseFill>
+                  <BsFillPauseFill className='action-buttons' onClick={handlePauseClick}></BsFillPauseFill>
                   :
-                  <BsFillPlayFill onClick={handlePlayClick}></BsFillPlayFill>
+                  <BsFillPlayFill className='action-buttons' onClick={handlePlayClick}></BsFillPlayFill>
                 }
                 {/* <h1><BsFillPlayFill></BsFillPlayFill></h1> */}
               </div>
