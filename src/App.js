@@ -122,12 +122,19 @@ function App() {
             }
             <canvas id="main-visuals" className='main-visuals'></canvas>
             <div className='overlay'>
-
-              {isPlaying ?
-                <BsFillPauseFill className='action-buttons' onClick={handlePauseClick}></BsFillPauseFill>
-                :
-                <BsFillPlayFill className='action-buttons' onClick={handlePlayClick}></BsFillPlayFill>
-              }
+              <div>
+                {isPlaying ?
+                  <BsFillPauseFill className='action-buttons' onClick={handlePauseClick}></BsFillPauseFill>
+                  :
+                  <BsFillPlayFill className='action-buttons' onClick={handlePlayClick}></BsFillPlayFill>
+                }
+              </div>
+            </div>
+            <div className='overlay-center'>
+              <div>
+                <p className='currently-playing-title'>{currentSong ? currentSong.title : "" }</p>
+                <p className='currently-playing-artist'>{currentSong ? "By " + currentSong.artist : "" }</p>
+              </div>
             </div>
             <div className='controls-right d-flex justify-content-between'>
               <div></div>

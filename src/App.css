@@ -224,6 +224,18 @@ body {
   justify-content: center;
 }
 
+.overlay-center{
+  min-width: 100%;
+  min-height: 100%;
+  position: absolute;
+  top: 4em;
+  left: 0;
+  /* background-color: rgba(95, 95, 95, 0.171); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .overlay svg {
   z-index: 2;
   color: rgba(255, 255, 255, 0.26);
@@ -233,6 +245,17 @@ body {
 .overlay svg:hover {
   color: rgba(255, 255, 255, 0.589);
   cursor: pointer;
+}
+
+.currently-playing-title {
+  margin-bottom: 0;
+  font-size: 1.2em;
+  color: rgb(209, 209, 209);
+}
+.currently-playing-artist {
+  margin-bottom: 0;
+  font-size: 0.8em;
+  color: rgb(185, 185, 185);
 }
 
 .main-visuals {
@@ -252,7 +275,7 @@ body {
 }
 
 .action-buttons {
-  font-size: 8em;
+  font-size: 6em;
 }
 
 /* Controls  */
