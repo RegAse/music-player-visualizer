@@ -26,7 +26,7 @@ export function Visualizer() {
     }
 
     function onChange(volume) {
-        if(!audioContext) {
+        if (!audioContext) {
             audioContext = new AudioContext();
         }
 
@@ -35,12 +35,12 @@ export function Visualizer() {
             // Nothing to be played...
             return;
         }
-        if(src != null) {
+        if (src != null) {
             src.disconnect();
             analyser.disconnect();
         }
 
-        if(dataArray == null) {
+        if (dataArray == null) {
             src = audioContext.createMediaElementSource(audio);
         }
         audio.load();
@@ -74,9 +74,28 @@ export function Visualizer() {
         let phi = theta * 0.25;
         let baseColorValue = 12;
 
+        // Frequencybands
+        let count = 0;
+        let frequencybands = [0, 0, 0, 0, 0, 0, 0];
+        let freq = 0.0001;
+        for (let i = 0; i < frequencybands.length; i++) {
+            let average = 0;
+            let sampleCount = Math.pow(2, i) * 2;
+            if (i === 7) {
+                sampleCount += 2;
+            }
+            for (let j = 0; j < sampleCount; j++) {
+                average += data[count] * (count + 1);
+                count++;
+            }
+
+            average /= count;
+            frequencybands[i] = average * 10;
+        }
+
         ctx.save();
 
-        ctx.fillStyle = '#c0c0c0';
+        ctx.fillStyle = "#c0c0c0";
         ctx.translate(w / 2, h / 2);
 
         let grd = ctx.createLinearGradient(0, 0, 200, 0);
@@ -88,65 +107,91 @@ export function Visualizer() {
         // let b = 12 * data[1];
 
         // Circle inside fill
-        // ctx.beginPath();
-        // ctx.arc(0, 0, r0 - 2, 0, 2 * Math.PI, false);
-        // ctx.fillStyle = 'rgb(122,122,122)';
-        // // ctx.shadowBlur = 33;
-        // // ctx.shadowColor = "rgb(" + r + "," + g + "," + b + ",0.75)";
-        // // ctx.fillStyle = grd;
-        // ctx.fill();
-        // ctx.shadowBlur = 0;
+        let circleSize = 256;
+        let calculatedSize = Math.max(0.5, Math.min(circleSize * frequencybands[1] * freq * 0.002, 1.5)) * circleSize;
+        calculatedSize = 128 * 1.4;
+        // console.log(calculatedSize);
+
+        // Main circle render
+        ctx.beginPath();
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = "black";
+        ctx.arc(0, 0, calculatedSize, 0, 2 * Math.PI, false);
+        // ctx.fillStyle = "rgb(0,0,0,0.7)";
+        // ctx.shadowBlur = 33;
+        // ctx.shadowColor = "rgb(" + r + "," + g + "," + b + ",0.75)";
+        // ctx.fillStyle = grd;
+
+        let mainGlowPower = 130;
+        let r2 = frequencybands[5] * freq * mainGlowPower;
+        let g2 = frequencybands[3] * freq * mainGlowPower;
+        let b2 = frequencybands[4] * freq * mainGlowPower;
+        console.log(r2 + " : " + g2 + " : " + b2);
+        // let r = 1 * boxHeight + (1 * (i / bufferSize));
+        // let g = 2 * boxHeight;
+        // let b = 3 * boxHeight;
+        ctx.shadowBlur = frequencybands[1] * 0.03;
+        ctx.shadowColor = "rgb(" + r2 + "," + g2 + "," + b2 + ",0.75)";
+        ctx.fillStyle = "rgba(0,0,0,0.5)";
+
+        ctx.fill();
+        ctx.shadowBlur = 0;
 
         // circle stroke
         ctx.beginPath();
-        ctx.arc(0, 0, r0 - 1, 0, 2 * Math.PI, false);
+        ctx.arc(0, 0, calculatedSize + 1, 0, 2 * Math.PI, false);
         ctx.lineWidth = 2;
 
         ctx.strokeStyle = "rgba(255,255,255,0.2)";
-        // ctx.shadowBlur = 33;
-        // ctx.shadowColor = "rgb(" + r + "," + g + "," + b + ",0.75)";
         ctx.stroke();
         ctx.shadowBlur = 0;
 
         let wraparound = 100;
-        // console.log("Ran now: " + n);
-        for (var i = 0; i < n - wraparound; ++i) {
-            let boxHeight = data[i * 1] * 0.6;
-            if (boxHeight == undefined || i > bufferSize || boxHeight < 10) {
+        let boxHeightStrength = 0.7;
+
+        // Bottom
+        for (var i = 0; i < wraparound; ++i) {
+            let boxHeight = data[i] * boxHeightStrength;
+            if (boxHeight === undefined || i > bufferSize || boxHeight < 10) {
                 boxHeight = 10;
             }
-            if(boxHeight > 300) {
+            if (boxHeight > 300) {
                 boxHeight = 300;
             }
 
-
             ctx.beginPath();
-            ctx.arc(0, 0, r0, -phi, phi);
-            ctx.arc(0, 0, r1 + boxHeight / 2, phi, -phi, true);
+            ctx.arc(0, 0, calculatedSize, -phi, phi);
+            ctx.arc(0, 0, calculatedSize + boxHeight / 2, phi, -phi, true);
 
-            let r = baseColorValue + 3 * boxHeight + (1 * (i / bufferSize));
-            let g = baseColorValue + 2 * boxHeight;
-            let b = baseColorValue + 4 * boxHeight;
+            // Bottom
+            let r = frequencybands[2] * freq * boxHeight;
+            let g = frequencybands[3] * freq * boxHeight;
+            let b = frequencybands[4] * freq * boxHeight;
+
             ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ",0.75)";
             ctx.fill();
             ctx.rotate(theta);
         }
-        for (var i = 0; i < wraparound; ++i) {
-            let boxHeight = data[wraparound - i] * 0.6;
-            if (boxHeight == undefined || boxHeight < 10) {
+
+        // Top
+        for (var i = wraparound; i > 0; --i) {
+            let boxHeight = data[i] * boxHeightStrength;
+            if (boxHeight === undefined || i > bufferSize || boxHeight < 10) {
                 boxHeight = 10;
             }
-            if(boxHeight > 300) {
+            if (boxHeight > 300) {
                 boxHeight = 300;
             }
 
             ctx.beginPath();
-            ctx.arc(0, 0, r0, -phi, phi);
-            ctx.arc(0, 0, r1 + boxHeight / 1, phi, -phi, true);
+            ctx.arc(0, 0, calculatedSize, -phi, phi);
+            ctx.arc(0, 0, calculatedSize + boxHeight / 2, phi, -phi, true);
 
-            let r = baseColorValue + 3 * boxHeight + (1 * (i / bufferSize));
-            let g = baseColorValue + 2 * boxHeight;
-            let b = baseColorValue + 4 * boxHeight;
+            // Top
+            let r = frequencybands[5] * freq * boxHeight;
+            let g = frequencybands[3] * freq * boxHeight;
+            let b = frequencybands[4] * freq * boxHeight;
+
             ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ",0.75)";
             ctx.fill();
             ctx.rotate(theta);

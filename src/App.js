@@ -89,7 +89,7 @@ function App() {
 
   return (
     <div>
-      <div className='app-container'>
+      <div className="app-container">
         <a className='sidebar-expand' onClick={() => setShowSidebar(!showSidebar)} style={showSidebar ? {opacity: 0} : {opacity: 1}}><BsList></BsList></a>
         <div className='app-sidebar' style={showSidebar ? {width: "20em", opacity: 1} : {width: "0em", opacity: 0}}>
           <BsFillArrowLeftSquareFill onClick={() => setShowSidebar(!showSidebar)} className='app-sidebar-collapse'></BsFillArrowLeftSquareFill>
@@ -110,8 +110,8 @@ function App() {
             {filteredSongs.length ? "" : "No Songs found: '" + search + "'"}
           </div>
         </div>
-        <div className='app-content'>
-          <div id='canvas-container' className='canvas-container'>
+        <div className="app-content">
+          <div id="canvas-container" className="canvas-container">
             {currentSong ?
               <div>
                 {/* {currentSong.title} */}
@@ -120,35 +120,35 @@ function App() {
               :
               ""
             }
-            <canvas id="main-visuals" className='main-visuals'></canvas>
-            <div className='overlay'>
+            <canvas id="main-visuals" className="main-visuals"></canvas>
+            <div className="overlay">
               <div>
                 {isPlaying ?
-                  <BsFillPauseFill className='action-buttons' onClick={handlePauseClick}></BsFillPauseFill>
+                  <BsFillPauseFill className="action-buttons" onClick={handlePauseClick}></BsFillPauseFill>
                   :
-                  <BsFillPlayFill className='action-buttons' onClick={handlePlayClick}></BsFillPlayFill>
+                  <BsFillPlayFill className="action-buttons" onClick={handlePlayClick}></BsFillPlayFill>
                 }
               </div>
             </div>
-            <div className='overlay-center'>
+            <div className="overlay-center">
               <div>
-                <p className='currently-playing-title'>{currentSong ? currentSong.title : "" }</p>
-                <p className='currently-playing-artist'>{currentSong ? "By " + currentSong.artist : "" }</p>
+                {/* <p className="currently-playing-title">{currentSong ? currentSong.title : "" }</p>
+                <p className="currently-playing-artist">{currentSong ? "By " + currentSong.artist : "" }</p> */}
               </div>
             </div>
-            <div className='controls-right d-flex justify-content-between'>
+            <div className="controls-right d-flex justify-content-between">
               <div></div>
               <div></div>
-              <div className='controls-volume d-flex align-items-center justify-content-center flex-column'>
+              <div className="controls-volume d-flex align-items-center justify-content-center flex-column">
                 <BsFillVolumeUpFill></BsFillVolumeUpFill>
-                <div className='slider-vertical-fixed-height always-on-top'>
-                  <input type="range" min="0" max="100" value={volume} onChange={handleVolumeChange} className='slider slider-vertical' />
+                <div className="slider-vertical-fixed-height always-on-top">
+                  <input type="range" min="0" max="100" value={volume} onChange={handleVolumeChange} className="slider slider-vertical" />
                 </div>
                 <BsFillVolumeOffFill></BsFillVolumeOffFill>
               </div>
             </div>
-            <div className='controls-bottom d-flex align-items-end justify-content-center'>
-              <div className='always-on-top'>
+            <div className="controls-bottom d-flex align-items-end justify-content-center">
+              <div className="always-on-top">
                 <span>{Math.floor(((duration / 100) * currentTime) % 3600 / 60).toString().padStart(1, '0') + ":" + Math.floor(((duration / 100) * currentTime) % 60).toString().padStart(2, '0')}</span>
                 <input type="range" min="0" max="100" value={currentTime} onChange={handleSeek} className='slider slider-horizontal' />
                 <span>{Math.floor(duration % 3600 / 60).toString().padStart(1, '0') + ":" + Math.floor(duration % 60).toString().padStart(2, '0')}</span>
